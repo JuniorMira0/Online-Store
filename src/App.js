@@ -1,6 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
+
+getCategories();
+getProductsFromCategoryAndQuery();
 
 function App() {
   return (
@@ -17,6 +21,7 @@ function App() {
           Learn React
         </a>
       </header>
+
     </div>
   );
 }
