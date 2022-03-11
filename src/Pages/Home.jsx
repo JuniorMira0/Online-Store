@@ -80,4 +80,4 @@ export default class Home extends React.Component {
   }
 }
 
-// Requisito feito com Lucas Nascimento e Euclides Comprido
+// Requisito feito com Lucas Nascimento e Euclides Comprido.
