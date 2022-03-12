@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './Pages/Home';
 import Category from './components/Category';
+import ProductDetail from './components/ProductDetail';
 // import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 
 // getCategories();
@@ -13,6 +14,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Switch>
+          <Route exact path="/product-detail:id" component={ ProductDetail } />
           <Route path="/" exact component={ Home } />
         </Switch>
       </BrowserRouter>

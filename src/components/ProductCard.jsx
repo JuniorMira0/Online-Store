@@ -6,11 +6,11 @@ class ProductCard extends React.Component {
     const { productName, productImage, productPrice } = this.props;
     return (
       <div data-testid="product">
-        <h1>{ productName }</h1>
-
-        <img src={ productImage } alt={ productName } />
-
-        <p>{ productPrice }</p>
+        <ol>
+          <h1>{ productName }</h1>
+          <img src={ productImage } alt={ productName } />
+          <p>{ productPrice }</p>
+        </ol>
       </div>
     );
   }

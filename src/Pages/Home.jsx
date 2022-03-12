@@ -36,12 +36,19 @@ export default class Home extends React.Component {
     if (filterProduct) {
       if (filterProduct.length > 0) {
         return (filterProduct
-          .map(({ id, title, price, thumbnail }) => (<ProductCard
-            key={ id }
-            productName={ title }
-            productPrice={ `R$: ${price}` }
-            productImage={ thumbnail }
-          />)));
+          .map(({ id, title, price, thumbnail }) => (
+            <Link
+              to={ `/product-detail/${id}` }
+              data-testid="product-detail-link"
+              key={ id }
+            >
+              <ProductCard
+                productName={ title }
+                productPrice={ `R$: ${price}` }
+                productImage={ thumbnail }
+              />
+            </Link>
+          )));
       }
       return <p>Nenhum produto foi encontrado</p>;
     }
