@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ShoppingCart from './ShoppingCart';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ProductCard from '../components/ProductCard';
+import Category from '../components/Category';
 
 export default class Home extends React.Component {
   constructor() {
@@ -82,6 +83,8 @@ export default class Home extends React.Component {
         <h1>Digite algum termo de pesquisa ou escolha uma categoria.</h1>
 
         { filterProduct ? this.renderProduct() : undefined}
+
+        <Category />
       </div>
     );
   }
