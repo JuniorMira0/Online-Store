@@ -45,14 +45,22 @@ export default class Home extends React.Component {
     if (filterProduct) {
       if (filterProduct.length > 0) {
         return (filterProduct
-          .map(({ id, title, price, thumbnail }) => (<ProductCard
-            key={ id }
-            nameId={ id }
-            productName={ title }
-            productPrice={ `R$: ${price}` }
-            productImage={ thumbnail }
-            addCart={ this.buttonAddCart }
-          />)));
+          .map(({ id, title, price, thumbnail }) => (
+            <Link
+              to={ `/product-detail/${id}` }
+              data-testid="product-detail-link"
+              key={ id }
+            >
+              <ProductCard
+                key={ id }
+                nameId={ id }
+                productName={ title }
+                productPrice={ `R$: ${price}` }
+                productImage={ thumbnail }
+                addCart={ this.buttonAddCart }
+              />
+            </Link>
+          )));
       }
       return <p>Nenhum produto foi encontrado</p>;
     }
@@ -115,7 +123,6 @@ export default class Home extends React.Component {
         <Category categoryFuncProp={ this.productsFromCategory } />
 
         { filterProduct ? this.renderProduct() : undefined}
-
       </div>
     );
   }
