@@ -11,6 +11,7 @@ export default class Home extends React.Component {
       inputProduct: '',
       filterProduct: '',
       countCart: 0,
+      countState: '',
     };
   }
 
@@ -32,11 +33,10 @@ export default class Home extends React.Component {
     });
   }
 
-  buttonAddCart = ({ target }) => {
+  buttonAddCart = () => {
     this.setState((prevState) => ({
       countCart: prevState.countCart + 1,
     }));
-    console.log(<ProductCard />);
   }
 
   renderProduct = () => {
@@ -58,14 +58,30 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const { inputProduct, filterProduct, countCart } = this.state;
+    const { inputProduct, filterProduct, countCart, countState } = this.state;
+    console.log(countCart);
     return (
       <div data-testid="home-initial-message">
         <button
           type="submit"
           data-testid="shopping-cart-button"
         >
-          <Link to="/shopping-cart"><ShoppingCart countProduct={ countCart } /></Link>
+          {/* <Link to="/shopping-cart">
+            { countCart === 0
+              ? <p>Seu carrinho está vazio</p>
+              : countCart } */}
+
+          <Link
+            to={ {
+              pathname: '/shopping-cart',
+              state: countState,
+            } }
+          >
+            { countCart === 0
+              ? <ShoppingCart countProduct={ countCart } />
+              : countCart }
+
+          </Link>
         </button>
         <input
           type="text"
