@@ -7,13 +7,13 @@ export default class ShoppingCart extends React.Component {
     // const { state } = this.props.location;
     // console.log(state);
     // console.log(countProduct);
-    console.log(this.props);
+    // console.log(this.props);
     // return (
     //   !countProduct ? (
     //     <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
     //   ) : <h1>{ countProduct }</h1>
     // );
-    return <p>a</p>;
+    return <p>Seu carrinho está vazio</p>;
   }
 }
 
