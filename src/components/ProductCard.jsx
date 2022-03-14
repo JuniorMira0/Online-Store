@@ -1,9 +1,36 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { getProductId } from '../services/api';
 
 class ProductCard extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+
+    };
+  }
+
+  addCart = async ({ target }) => {
+    const data = await getProductId(target.id);
+    console.log(data);
+    console.log(target);
+    const local = JSON.parse(localStorage.getItem('cartList'));
+    if (local) {
+      const lista = [...local, data];
+      const localStrig = JSON.stringify(lista);
+      localStorage.setItem('cartList', localStrig);
+      console.log(lista);
+    } else {
+      const lista = [data];
+      const localStrig = JSON.stringify(lista);
+      localStorage.setItem('cartList', localStrig);
+      console.log(lista);
+    }
+  }
+
   render() {
-    const { productName, productImage, productPrice, addCart } = this.props;
+    const { productName, productImage, productPrice, nameId } = this.props;
     return (
       <div data-testid="product">
         <h1>{ productName }</h1>
@@ -15,7 +42,8 @@ class ProductCard extends React.Component {
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ addCart }
+          onClick={ this.addCart }
+          id={ nameId }
         >
           Adicionar ao carrinho
         </button>
@@ -28,7 +56,7 @@ ProductCard.propTypes = {
   productName: propTypes.string.isRequired,
   productImage: propTypes.string.isRequired,
   productPrice: propTypes.string.isRequired,
-  addCart: propTypes.func.isRequired,
+  nameId: propTypes.number.isRequired,
 };
 
 export default ProductCard;

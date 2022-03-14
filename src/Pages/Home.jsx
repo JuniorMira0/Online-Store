@@ -57,7 +57,6 @@ export default class Home extends React.Component {
                 productName={ title }
                 productPrice={ `R$: ${price}` }
                 productImage={ thumbnail }
-                addCart={ this.buttonAddCart }
               />
             </Link>
           )));
