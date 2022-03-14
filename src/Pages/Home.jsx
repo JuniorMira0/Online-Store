@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ShoppingCart from './ShoppingCart';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getProductsFromQuery, getCategoryFromId } from '../services/api';
 import ProductCard from '../components/ProductCard';
+import Category from '../components/Category';
 
 export default class Home extends React.Component {
   constructor() {
@@ -24,7 +25,7 @@ export default class Home extends React.Component {
 
   buttonProduct = async () => {
     const { inputProduct } = this.state;
-    const data = await getProductsFromCategoryAndQuery(undefined, inputProduct);
+    const data = await getProductsFromQuery(inputProduct);
     const { results } = data;
 
     // const filtro = results.filter(({ title }) => title.includes(inputProduct));
@@ -57,6 +58,16 @@ export default class Home extends React.Component {
     }
   }
 
+  productsFromCategory = async (id) => {
+    // const { categoryName } = this.state;
+    const data = await getCategoryFromId(id);
+    const { results } = data;
+    console.log(results);
+    this.setState({
+      filterProduct: results,
+    });
+  }
+
   render() {
     const { inputProduct, filterProduct, countCart, countState } = this.state;
     console.log(countCart);
@@ -83,6 +94,7 @@ export default class Home extends React.Component {
 
           </Link>
         </button>
+
         <input
           type="text"
           placeholder="Pesquise um produto"
@@ -100,7 +112,10 @@ export default class Home extends React.Component {
         </button>
         <h1>Digite algum termo de pesquisa ou escolha uma categoria.</h1>
 
+        <Category categoryFuncProp={ this.productsFromCategory } />
+
         { filterProduct ? this.renderProduct() : undefined}
+
       </div>
     );
   }
