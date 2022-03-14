@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { getCategories } from '../services/api';
 
 class Category extends React.Component {
@@ -7,6 +8,7 @@ class Category extends React.Component {
 
     this.state = {
       catState: '',
+      // categoryName: '',
     };
     this.categoryFunc = this.categoryFunc.bind(this);
     this.goState = this.goState.bind(this);
@@ -17,20 +19,38 @@ class Category extends React.Component {
     // this.categoryFunc();
   }
 
+  // stateCategory = ({ target }) => {
+  //   console.log(target);
+  //   this.setState({
+  //     categoryName: target.id,
+  //   }, () => {
+  //     this.productsFromCategory();
+  //   });
+  // }
+
+  // productsFromCategory = async () => {
+  //   const { categoryName } = this.state;
+  //   const data = await getCategoryFromId(categoryName);
+  //   const { results } = data;
+  //   console.log(results);
+  // }
+
   categoryFunc() {
     // this.goState();
     // console.log(catState);
     const { catState } = this.state;
+    const { categoryFuncProp } = this.props;
     return (
       <div>
         { catState.map((id) => (
           <label htmlFor={ id.id } key={ id.name }>
             <input
               type="radio"
-              name="categoria"
+              name="category"
               data-testid="category"
               key={ id.id }
               id={ id.id }
+              onClick={ () => categoryFuncProp(id.id) }
             />
             { id.name }
           </label>
@@ -62,5 +82,9 @@ class Category extends React.Component {
     );
   }
 }
+
+Category.propTypes = {
+  categoryFuncProp: propTypes.func.isRequired,
+};
 
 export default Category;

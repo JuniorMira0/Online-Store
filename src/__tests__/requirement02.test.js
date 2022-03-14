@@ -11,7 +11,7 @@ describe('2 - Crie uma página de listagem de produtos vazia', () => {
       categoria.'`, () => {
     render(<App />);
     expect(screen.getByTestId('home-initial-message')).toHaveTextContent(
-      'Digite algum termo de pesquisa ou escolha uma categoria.',
+      'Digite algum termo de pesquisa ou escolha uma categoria.'
     );
   });
 });
