@@ -10,6 +10,7 @@ export default class Home extends React.Component {
     this.state = {
       inputProduct: '',
       filterProduct: '',
+      countCart: 0,
     };
   }
 
@@ -31,6 +32,13 @@ export default class Home extends React.Component {
     });
   }
 
+  buttonAddCart = ({ target }) => {
+    this.setState((prevState) => ({
+      countCart: prevState.countCart + 1,
+    }));
+    console.log(<ProductCard />);
+  }
+
   renderProduct = () => {
     const { filterProduct } = this.state;
     if (filterProduct) {
@@ -38,9 +46,11 @@ export default class Home extends React.Component {
         return (filterProduct
           .map(({ id, title, price, thumbnail }) => (<ProductCard
             key={ id }
+            nameId={ id }
             productName={ title }
             productPrice={ `R$: ${price}` }
             productImage={ thumbnail }
+            addCart={ this.buttonAddCart }
           />)));
       }
       return <p>Nenhum produto foi encontrado</p>;
@@ -48,14 +58,14 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const { inputProduct, filterProduct } = this.state;
+    const { inputProduct, filterProduct, countCart } = this.state;
     return (
       <div data-testid="home-initial-message">
         <button
           type="submit"
           data-testid="shopping-cart-button"
         >
-          <Link to="/shopping-cart"><ShoppingCart /></Link>
+          <Link to="/shopping-cart"><ShoppingCart countProduct={ countCart } /></Link>
         </button>
         <input
           type="text"

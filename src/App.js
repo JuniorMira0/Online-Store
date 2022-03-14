@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './Pages/Home';
-import Category from './components/Category';
+import ShoppingCart from './Pages/ShoppingCart';
 // import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 
 // getCategories();
@@ -13,11 +13,11 @@ function App() {
     <div>
       <BrowserRouter>
         <Switch>
+          <Route path="/shopping-cart" component={ ShoppingCart } />
+
           <Route path="/" exact component={ Home } />
         </Switch>
       </BrowserRouter>
-
-      <Category />
     </div>
   );
 }
