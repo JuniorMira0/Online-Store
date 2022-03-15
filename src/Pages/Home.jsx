@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ShoppingCart from './ShoppingCart';
 import { getProductsFromQuery, getCategoryFromId } from '../services/api';
 import ProductCard from '../components/ProductCard';
 import Category from '../components/Category';
@@ -12,8 +11,11 @@ export default class Home extends React.Component {
       inputProduct: '',
       filterProduct: '',
       countCart: 0,
-      countState: '',
     };
+  }
+
+  componentDidMount() {
+
   }
 
   onChangeInput = ({ target }) => {
@@ -46,19 +48,13 @@ export default class Home extends React.Component {
       if (filterProduct.length > 0) {
         return (filterProduct
           .map(({ id, title, price, thumbnail }) => (
-            <Link
-              to={ `/product-detail/${id}` }
-              data-testid="product-detail-link"
+            <ProductCard
               key={ id }
-            >
-              <ProductCard
-                key={ id }
-                nameId={ id }
-                productName={ title }
-                productPrice={ `R$: ${price}` }
-                productImage={ thumbnail }
-              />
-            </Link>
+              nameId={ id }
+              productName={ title }
+              productPrice={ `R$: ${price}` }
+              productImage={ thumbnail }
+            />
           )));
       }
       return <p>Nenhum produto foi encontrado</p>;
@@ -75,8 +71,19 @@ export default class Home extends React.Component {
     });
   }
 
+  // const data = [];
+  // localStorage.setItem('cartList', JSON.stringify(data));
+
+  renderLinkCart = () => {
+    const local = JSON.parse(localStorage.getItem('cartList'));
+    if (local && local.length > 0) {
+      return local.length;
+    }
+    return <p>Seu carrinho está vazio</p>;
+  }
+
   render() {
-    const { inputProduct, filterProduct, countCart, countState } = this.state;
+    const { inputProduct, filterProduct, countCart } = this.state;
     console.log(countCart);
     return (
       <div data-testid="home-initial-message">
@@ -90,14 +97,9 @@ export default class Home extends React.Component {
               : countCart } */}
 
           <Link
-            to={ {
-              pathname: '/shopping-cart',
-              state: countState,
-            } }
+            to="/shopping-cart"
           >
-            { countCart === 0
-              ? <ShoppingCart countProduct={ countCart } />
-              : countCart }
+            { this.renderLinkCart() }
 
           </Link>
         </button>

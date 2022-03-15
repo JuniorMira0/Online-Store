@@ -1,23 +1,74 @@
 import React from 'react';
-// import propTypes from 'prop-types';
 
 export default class ShoppingCart extends React.Component {
+  componentDidMount() {
+    // this.getLocal();
+    // this.countProduct();
+    this.countCart();
+    // console.log(a);
+    this.getCountLocal();
+  }
+
+  countCart = () => {
+    const b = new Set();
+    const local = JSON.parse(localStorage.getItem('cartList'));
+    if (local) {
+      const filtro = local.filter((produto) => {
+        const a = b.has(produto.title);
+        b.add(produto.title);
+        // console.log(b);
+        return !a;
+      });
+      return filtro;
+    }
+  }
+
+  getCountLocal = (id) => {
+    const local = JSON.parse(localStorage.getItem('cartList'));
+    console.log(local);
+    if (local) {
+      const a = local.filter((param) => id === param.id);
+      return a.length;
+    }
+  }
+
+  getLocal = () => {
+    const filtro = this.countCart();
+    return (
+      filtro.map((id, index) => (
+        <div key={ index }>
+          <h1 data-testid="shopping-cart-product-name">{ id.title }</h1>
+
+          <img src={ id.thumbnail } alt={ id.title } />
+
+          <p>{ `R$: ${id.price}` }</p>
+
+          <p data-testid="shopping-cart-product-quantity">
+            { this.getCountLocal(id.id) }
+
+          </p>
+        </div>
+      ))
+    );
+  }
+
+  renderProduct = () => {
+    const local = JSON.parse(localStorage.getItem('cartList'));
+    // console.log(local);
+    if (local && local.length > 0) {
+      return this.getLocal();
+    }
+    return <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>;
+  }
+
   render() {
-    // const { productName, countProduct } = this.props;
-    // const { state } = this.props.location;
-    // console.log(state);
-    // console.log(countProduct);
-    // console.log(this.props);
-    // return (
-    //   !countProduct ? (
-    //     <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-    //   ) : <h1>{ countProduct }</h1>
-    // );
-    return <p>Seu carrinho está vazio</p>;
+    return (
+      <div>
+        <h1>Carrinho de Compras</h1>
+
+        { this.renderProduct() }
+      </div>
+    );
   }
 }
-
-// ShoppingCart.propTypes = {
-//   productName: propTypes.string.isRequired,
-// };
 // Requisito feito por Junior/ Lucas/ Euclides
