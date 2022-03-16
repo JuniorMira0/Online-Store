@@ -1,4 +1,6 @@
 import React from 'react';
+import CartProduct from '../components/CartProduct';
+// import { getProductId } from '../services/api';
 
 export default class ShoppingCart extends React.Component {
   componentDidMount() {
@@ -6,7 +8,7 @@ export default class ShoppingCart extends React.Component {
     // this.countProduct();
     this.countCart();
     // console.log(a);
-    this.getCountLocal();
+    // this.getCountLocal();
   }
 
   countCart = () => {
@@ -23,36 +25,25 @@ export default class ShoppingCart extends React.Component {
     }
   }
 
-  getCountLocal = (id) => {
-    const local = JSON.parse(localStorage.getItem('cartList'));
-    console.log(local);
-    if (local) {
-      const a = local.filter((param) => id === param.id);
-      return a.length;
-    }
-  }
-
   getLocal = () => {
     const filtro = this.countCart();
+    // const { countProduct } = this.state;
     return (
       filtro.map((id, index) => (
-        <div key={ index }>
-          <h3 data-testid="shopping-cart-product-name">{ id.title }</h3>
-
-          <img src={ id.thumbnail } alt={ id.title } />
-
-          <p>{ `R$: ${id.price}` }</p>
-
-          <p data-testid="shopping-cart-product-quantity">
-            { this.getCountLocal(id.id) }
-          </p>
-        </div>
+        <CartProduct
+          key={ index }
+          title={ id.title }
+          image={ id.thumbnail }
+          price={ id.price }
+          id={ id.id }
+        />
       ))
     );
   }
 
   renderProduct = () => {
     const local = JSON.parse(localStorage.getItem('cartList'));
+    // const { countProduct } = this.state;
     // console.log(local);
     if (local && local.length > 0) {
       return this.getLocal();
