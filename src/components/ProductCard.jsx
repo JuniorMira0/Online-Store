@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getProductId } from '../services/api';
+// import { getProductId } from '../services/api';
 
 class ProductCard extends React.Component {
   constructor() {
@@ -62,10 +62,12 @@ class ProductCard extends React.Component {
 }
 
 ProductCard.propTypes = {
-  productName: propTypes.string.isRequired,
-  productImage: propTypes.string.isRequired,
-  productPrice: propTypes.string.isRequired,
-  nameId: propTypes.string.isRequired,
+  productItem: propTypes.shape({
+    title: propTypes.string.isRequired,
+    thumbnail: propTypes.string.isRequired,
+    price: propTypes.string.isRequired,
+    id: propTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ProductCard;

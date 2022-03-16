@@ -74,7 +74,7 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const { inputProduct, filterProduct, countCart } = this.state;
+    const { inputProduct, filterProduct } = this.state;
     return (
       <div data-testid="home-initial-message">
         <Link
