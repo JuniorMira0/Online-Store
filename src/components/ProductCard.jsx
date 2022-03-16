@@ -14,19 +14,15 @@ class ProductCard extends React.Component {
 
   addCart = async ({ target }) => {
     const data = await getProductId(target.id);
-    console.log(data);
-    console.log(target);
     const local = JSON.parse(localStorage.getItem('cartList'));
     if (local) {
       const lista = [...local, data];
       const localStrig = JSON.stringify(lista);
       localStorage.setItem('cartList', localStrig);
-      console.log(lista);
     } else {
       const lista = [data];
       const localStrig = JSON.stringify(lista);
       localStorage.setItem('cartList', localStrig);
-      console.log(lista);
     }
   }
 
@@ -64,7 +60,7 @@ ProductCard.propTypes = {
   productName: propTypes.string.isRequired,
   productImage: propTypes.string.isRequired,
   productPrice: propTypes.string.isRequired,
-  nameId: propTypes.number.isRequired,
+  nameId: propTypes.string.isRequired,
 };
 
 export default ProductCard;

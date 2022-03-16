@@ -25,7 +25,7 @@ export default class ShoppingCart extends React.Component {
     }
   }
 
-  getLocal = () => {
+  /* getLocal = () => {
     const filtro = this.countCart();
     // const { countProduct } = this.state;
     return (
@@ -40,8 +40,8 @@ export default class ShoppingCart extends React.Component {
       ))
     );
   }
-
-  renderProduct = () => {
+ */
+  /* renderProduct = () => {
     const local = JSON.parse(localStorage.getItem('cartList'));
     // const { countProduct } = this.state;
     // console.log(local);
@@ -49,15 +49,32 @@ export default class ShoppingCart extends React.Component {
       return this.getLocal();
     }
     return <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>;
-  }
+  } */
 
   render() {
+    const local = JSON.parse(localStorage.getItem('cartList'));
+    const filtro = this.countCart();
+
     return (
-      <div>
+      <>
         <h1>Carrinho de Compras</h1>
 
-        { this.renderProduct() }
-      </div>
+        {/* { this.renderProduct() } */}
+
+        {local && local.length > 0
+          ? filtro.map((id, index) => (
+            <CartProduct
+              key={ index }
+              title={ id.title }
+              image={ id.thumbnail }
+              price={ id.price }
+              id={ id.id }
+            />
+          ))
+          : <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>}
+
+        {/* <div data-testid="shopping-cart-product-name" />  */}
+      </>
     );
   }
 }

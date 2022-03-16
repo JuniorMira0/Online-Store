@@ -14,14 +14,11 @@ export default class ProductDetail extends React.Component {
 
   componentDidMount() {
     this.handleProduct();
-    console.log('chamou');
   }
 
   handleProduct = async () => {
     const { match: { params: { id } } } = this.props; // match contem info sobre como o route path correspondeu a url
     const result = await getProductId(id);
-    console.log(result);
-    console.log(result.attributes);
     this.setState({
       product: result,
     });
@@ -29,8 +26,6 @@ export default class ProductDetail extends React.Component {
 
   addCart = async ({ target }) => {
     const data = await getProductId(target.id);
-    console.log(data);
-    console.log(target);
     const local = JSON.parse(localStorage.getItem('cartList'));
     if (local) {
       const lista = [...local, data];
@@ -41,7 +36,6 @@ export default class ProductDetail extends React.Component {
       const lista = [data];
       const localStrig = JSON.stringify(lista);
       localStorage.setItem('cartList', localStrig);
-      console.log(lista);
     }
   }
 

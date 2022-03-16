@@ -28,8 +28,6 @@ export async function getProductsFromQuery(item) {
   const url = `https://api.mercadolibre.com/sites/MLB/search?q=${item}`;
   const response = await fetch(url);
   const data = await response.json();
-  console.log(data);
-  console.log(item);
 
   return data;
 }

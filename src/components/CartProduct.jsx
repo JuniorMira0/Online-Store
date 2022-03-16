@@ -13,7 +13,6 @@ class CartProduct extends React.Component {
 
   getCountLocal = (id) => {
     const local = JSON.parse(localStorage.getItem('cartList'));
-    // console.log(local);
     if (local) {
       const a = local.filter((param) => id === param.id);
       this.setState({
@@ -25,39 +24,25 @@ class CartProduct extends React.Component {
 
   plusButton = async ({ target }) => {
     const data = await getProductId(target.name);
-    // console.log(data);
-    // console.log(target.name);
     const local = JSON.parse(localStorage.getItem('cartList'));
     if (local) {
       const lista = [...local, data];
       const localStrig = JSON.stringify(lista);
       localStorage.setItem('cartList', localStrig);
-      // console.log(lista);
     } else {
       const lista = [data];
       const localStrig = JSON.stringify(lista);
       localStorage.setItem('cartList', localStrig);
-      // console.log(lista);
     }
     this.getCountLocal(target.name);
   }
 
   minusButton = async ({ target }) => {
-    // const data = await getProductId(target.name);
-    // console.log(data);
     console.log(target.name);
     const local = JSON.parse(localStorage.getItem('cartList'));
     if (local) {
-      // const lista = [...local, data];
-      // console.log(data);
-      // console.log(lista);
-      // console.log(local);
       const indexProduct = local.findIndex((produto) => produto.id === target.name);
-      // const um = findIndex(local)
-      // console.log(indexProduct);
       local.splice(indexProduct, 1);
-      // console.log(indexProduct);
-      // console.log(local);
       const localStrig = JSON.stringify(local);
       localStorage.setItem('cartList', localStrig);
     }

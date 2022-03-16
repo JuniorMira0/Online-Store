@@ -61,7 +61,6 @@ class Category extends React.Component {
 
   async goState() {
     const categoria = await getCategories();
-    console.log(categoria);
     this.setState({
       catState: categoria,
     }, () => {
@@ -70,7 +69,6 @@ class Category extends React.Component {
   }
 
   render() {
-    // console.log(this.categoryFunc());
     const { catState } = this.state;
     return (
       <div>

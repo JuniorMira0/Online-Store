@@ -30,7 +30,6 @@ export default class Home extends React.Component {
     const data = await getProductsFromQuery(inputProduct);
     const { results } = data;
 
-    // const filtro = results.filter(({ title }) => title.includes(inputProduct));
     this.setState({
       filterProduct: results,
     });
@@ -62,17 +61,12 @@ export default class Home extends React.Component {
   }
 
   productsFromCategory = async (id) => {
-    // const { categoryName } = this.state;
     const data = await getCategoryFromId(id);
     const { results } = data;
-    console.log(results);
     this.setState({
       filterProduct: results,
     });
   }
-
-  // const data = [];
-  // localStorage.setItem('cartList', JSON.stringify(data));
 
   renderLinkCart = () => {
     const local = JSON.parse(localStorage.getItem('cartList'));
@@ -84,7 +78,6 @@ export default class Home extends React.Component {
 
   render() {
     const { inputProduct, filterProduct, countCart } = this.state;
-    console.log(countCart);
     return (
       <div data-testid="home-initial-message">
         <Link
@@ -97,8 +90,6 @@ export default class Home extends React.Component {
             { this.renderLinkCart() }
 
           </button>
-          {/* { this.renderLinkCart() } */}
-
         </Link>
 
         <input
@@ -121,6 +112,7 @@ export default class Home extends React.Component {
         <Category categoryFuncProp={ this.productsFromCategory } />
 
         { filterProduct ? this.renderProduct() : undefined}
+
       </div>
     );
   }
