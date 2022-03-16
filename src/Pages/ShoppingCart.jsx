@@ -37,7 +37,7 @@ export default class ShoppingCart extends React.Component {
     return (
       filtro.map((id, index) => (
         <div key={ index }>
-          <h1 data-testid="shopping-cart-product-name">{ id.title }</h1>
+          <h3 data-testid="shopping-cart-product-name">{ id.title }</h3>
 
           <img src={ id.thumbnail } alt={ id.title } />
 
@@ -45,7 +45,6 @@ export default class ShoppingCart extends React.Component {
 
           <p data-testid="shopping-cart-product-quantity">
             { this.getCountLocal(id.id) }
-
           </p>
         </div>
       ))

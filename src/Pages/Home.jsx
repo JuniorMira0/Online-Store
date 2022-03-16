@@ -87,22 +87,19 @@ export default class Home extends React.Component {
     console.log(countCart);
     return (
       <div data-testid="home-initial-message">
-        <button
-          type="submit"
-          data-testid="shopping-cart-button"
+        <Link
+          to="/shopping-cart"
         >
-          {/* <Link to="/shopping-cart">
-            { countCart === 0
-              ? <p>Seu carrinho está vazio</p>
-              : countCart } */}
-
-          <Link
-            to="/shopping-cart"
+          <button
+            type="button"
+            data-testid="shopping-cart-button"
           >
             { this.renderLinkCart() }
 
-          </Link>
-        </button>
+          </button>
+          {/* { this.renderLinkCart() } */}
+
+        </Link>
 
         <input
           type="text"
