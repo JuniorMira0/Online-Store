@@ -12,32 +12,37 @@ class ProductCard extends React.Component {
     };
   }
 
-  addCart = async ({ target }) => {
-    const data = await getProductId(target.id);
+  addCart = () => {
+    // const data = await getProductId(target.id);
+    const { productItem } = this.props;
+    console.log(productItem);
     const local = JSON.parse(localStorage.getItem('cartList'));
     if (local) {
-      const lista = [...local, data];
+      const lista = [...local, productItem];
       const localStrig = JSON.stringify(lista);
       localStorage.setItem('cartList', localStrig);
     } else {
-      const lista = [data];
+      const lista = [productItem];
       const localStrig = JSON.stringify(lista);
       localStorage.setItem('cartList', localStrig);
     }
   }
 
   render() {
-    const { productName, productImage, productPrice, nameId } = this.props;
+    const { productItem } = this.props;
+    const { id, title, price, thumbnail } = productItem;
+    // console.log(productItem);
+
     return (
       <div data-testid="product">
-        <h1>{ productName }</h1>
+        <h1>{ title }</h1>
 
-        <img src={ productImage } alt={ productName } />
+        <img src={ thumbnail } alt={ title } />
 
-        <p>{ productPrice }</p>
+        <p>{ price }</p>
 
         <Link
-          to={ `/product-detail/${nameId}` }
+          to={ `/product-detail/${id}` }
           data-testid="product-detail-link"
         >
           Ver os detalhes
@@ -47,7 +52,7 @@ class ProductCard extends React.Component {
           type="button"
           data-testid="product-add-to-cart"
           onClick={ this.addCart }
-          id={ nameId }
+          id={ id }
         >
           Adicionar ao carrinho
         </button>

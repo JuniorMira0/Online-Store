@@ -46,13 +46,10 @@ export default class Home extends React.Component {
     if (filterProduct) {
       if (filterProduct.length > 0) {
         return (filterProduct
-          .map(({ id, title, price, thumbnail }) => (
+          .map((product, index) => (
             <ProductCard
-              key={ id }
-              nameId={ id }
-              productName={ title }
-              productPrice={ `R$: ${price}` }
-              productImage={ thumbnail }
+              key={ index }
+              productItem={ product }
             />
           )));
       }
