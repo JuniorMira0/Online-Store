@@ -13,9 +13,7 @@ class ProductCard extends React.Component {
   }
 
   addCart = () => {
-    // const data = await getProductId(target.id);
     const { productItem } = this.props;
-    console.log(productItem);
     const local = JSON.parse(localStorage.getItem('cartList'));
     if (local) {
       const lista = [...local, productItem];
@@ -31,7 +29,6 @@ class ProductCard extends React.Component {
   render() {
     const { productItem } = this.props;
     const { id, title, price, thumbnail } = productItem;
-    // console.log(productItem);
 
     return (
       <div data-testid="product">

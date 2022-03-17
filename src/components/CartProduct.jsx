@@ -9,16 +9,26 @@ class CartProduct extends React.Component {
     this.state = {
       countProduct: 1,
     };
+
+    this.getCountLocal = this.getCountLocal.bind(this);
   }
 
-  getCountLocal = (id) => {
+  componentDidMount() {
+    this.getCountLocal();
+  }
+
+  getCountLocal() {
+    const { id } = this.props;
     const local = JSON.parse(localStorage.getItem('cartList'));
     if (local) {
-      const a = local.filter((param) => id === param.id);
+      console.log(local);
+      const a = local.filter((param) => id === param.id).length;
+      console.log(a);
       this.setState({
-        countProduct: a.length,
+        countProduct: a,
       });
-      return a.length;
+      console.log(this.state.countProduct);
+      // return a.length;
     }
   }
 
@@ -34,11 +44,10 @@ class CartProduct extends React.Component {
       const localStrig = JSON.stringify(lista);
       localStorage.setItem('cartList', localStrig);
     }
-    this.getCountLocal(target.name);
+    this.getCountLocal();
   }
 
   minusButton = async ({ target }) => {
-    console.log(target.name);
     const local = JSON.parse(localStorage.getItem('cartList'));
     if (local) {
       const indexProduct = local.findIndex((produto) => produto.id === target.name);
@@ -46,7 +55,7 @@ class CartProduct extends React.Component {
       const localStrig = JSON.stringify(local);
       localStorage.setItem('cartList', localStrig);
     }
-    this.getCountLocal(target.name);
+    this.getCountLocal();
   }
 
   render() {
@@ -55,16 +64,28 @@ class CartProduct extends React.Component {
     return (
       <div>
         <h3 data-testid="shopping-cart-product-name">{ title }</h3>
-
         <img src={ image } alt={ title } />
-
         <p>{ `R$: ${price}` }</p>
-
         <p data-testid="shopping-cart-product-quantity">
           { countProduct }
         </p>
-        <button type="button" name={ id } onClick={ this.plusButton }>+</button>
-        <button type="button" name={ id } onClick={ this.minusButton }>-</button>
+
+        <button
+          type="button"
+          name={ id }
+          onClick={ this.plusButton }
+          data-testid="product-increase-quantity"
+        >
+          +
+        </button>
+        <button
+          type="button"
+          name={ id }
+          onClick={ this.minusButton }
+          data-testid="product-decrease-quantity"
+        >
+          -
+        </button>
         {/* <button type="button" id={ id.id } onClick={ this. } >X</button> */}
       </div>
     );
@@ -74,7 +95,7 @@ class CartProduct extends React.Component {
 CartProduct.propTypes = {
   title: propTypes.string.isRequired,
   image: propTypes.string.isRequired,
-  price: propTypes.string.isRequired,
+  price: propTypes.number.isRequired,
   id: propTypes.string.isRequired,
 };
 

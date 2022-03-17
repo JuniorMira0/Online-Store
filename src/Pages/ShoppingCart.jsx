@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CartProduct from '../components/CartProduct';
+import Home from './Home';
 // import { getProductId } from '../services/api';
 
 export default class ShoppingCart extends React.Component {
@@ -57,6 +59,7 @@ export default class ShoppingCart extends React.Component {
 
     return (
       <>
+        <Link to="/">Home</Link>
         <h1>Carrinho de Compras</h1>
 
         {/* { this.renderProduct() } */}
