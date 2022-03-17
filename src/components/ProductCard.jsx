@@ -65,7 +65,7 @@ ProductCard.propTypes = {
   productItem: propTypes.shape({
     title: propTypes.string.isRequired,
     thumbnail: propTypes.string.isRequired,
-    price: propTypes.string.isRequired,
+    price: propTypes.number.isRequired,
     id: propTypes.string.isRequired,
   }).isRequired,
 };

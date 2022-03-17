@@ -24,16 +24,17 @@ export default class ProductDetail extends React.Component {
     });
   }
 
-  addCart = async ({ target }) => {
-    const data = await getProductId(target.id);
+  addCart = () => {
+    // const data = await getProductId(target.id);
+    const { product } = this.state;
     const local = JSON.parse(localStorage.getItem('cartList'));
     if (local) {
-      const lista = [...local, data];
+      const lista = [...local, product];
       const localStrig = JSON.stringify(lista);
       localStorage.setItem('cartList', localStrig);
       console.log(lista);
     } else {
-      const lista = [data];
+      const lista = [product];
       const localStrig = JSON.stringify(lista);
       localStorage.setItem('cartList', localStrig);
     }
