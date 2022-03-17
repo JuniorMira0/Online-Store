@@ -14,10 +14,6 @@ export default class Home extends React.Component {
     };
   }
 
-  componentDidMount() {
-
-  }
-
   onChangeInput = ({ target }) => {
     const { value } = target;
     this.setState({
@@ -114,5 +110,3 @@ export default class Home extends React.Component {
     );
   }
 }
-
-// Requisito feito com Lucas Nascimento e Euclides Comprido.

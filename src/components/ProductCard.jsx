@@ -1,7 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import { getProductId } from '../services/api';
 
 class ProductCard extends React.Component {
   constructor() {

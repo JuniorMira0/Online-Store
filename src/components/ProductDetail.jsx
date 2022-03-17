@@ -25,14 +25,12 @@ export default class ProductDetail extends React.Component {
   }
 
   addCart = () => {
-    // const data = await getProductId(target.id);
     const { product } = this.state;
     const local = JSON.parse(localStorage.getItem('cartList'));
     if (local) {
       const lista = [...local, product];
       const localStrig = JSON.stringify(lista);
       localStorage.setItem('cartList', localStrig);
-      console.log(lista);
     } else {
       const lista = [product];
       const localStrig = JSON.stringify(lista);
@@ -62,7 +60,6 @@ export default class ProductDetail extends React.Component {
           >
             { this.renderLinkCart() }
           </button>
-          {/* { this.renderLinkCart() } */}
 
         </Link>
 
@@ -83,7 +80,6 @@ export default class ProductDetail extends React.Component {
             <li>{`${attribute.name}: ${attribute.value_name}`}</li>
           </ul>
         ))}
-        {/* { attributes.map((atributos) => console.log(atributos)) } */}
       </div>
     );
   }

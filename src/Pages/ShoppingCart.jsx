@@ -1,77 +1,58 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CartProduct from '../components/CartProduct';
-import Home from './Home';
-// import { getProductId } from '../services/api';
 
 export default class ShoppingCart extends React.Component {
-  componentDidMount() {
-    // this.getLocal();
-    // this.countProduct();
-    this.countCart();
-    // console.log(a);
-    // this.getCountLocal();
+  constructor() {
+    super();
+    this.state = {
+      cart: [],
+    };
+
+    this.removeItem = this.removeItem.bind(this);
   }
 
-  countCart = () => {
+  componentDidMount() {
+    const local = JSON.parse(localStorage.getItem('cartList')) || [];
     const b = new Set();
-    const local = JSON.parse(localStorage.getItem('cartList'));
+
     if (local) {
-      const filtro = local.filter((produto) => {
+      const cart = local.filter((produto) => {
         const a = b.has(produto.title);
         b.add(produto.title);
-        // console.log(b);
         return !a;
       });
-      return filtro;
+
+      this.setState({
+        cart,
+      });
     }
   }
 
-  /* getLocal = () => {
-    const filtro = this.countCart();
-    // const { countProduct } = this.state;
-    return (
-      filtro.map((id, index) => (
-        <CartProduct
-          key={ index }
-          title={ id.title }
-          image={ id.thumbnail }
-          price={ id.price }
-          id={ id.id }
-        />
-      ))
-    );
+  removeItem(title) {
+    const { cart } = this.state;
+    this.setState({
+      cart: cart.filter((item) => item.title !== title),
+    });
   }
- */
-  /* renderProduct = () => {
-    const local = JSON.parse(localStorage.getItem('cartList'));
-    // const { countProduct } = this.state;
-    // console.log(local);
-    if (local && local.length > 0) {
-      return this.getLocal();
-    }
-    return <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>;
-  } */
 
   render() {
-    const local = JSON.parse(localStorage.getItem('cartList'));
-    const filtro = this.countCart();
+    const { cart } = this.state;
 
     return (
       <>
         <Link to="/">Home</Link>
         <h1>Carrinho de Compras</h1>
 
-        {/* { this.renderProduct() } */}
-
-        {local && local.length > 0
-          ? filtro.map((id, index) => (
+        {cart.length > 0
+          ? cart.map((id, index) => (
             <CartProduct
               key={ index }
               title={ id.title }
               image={ id.thumbnail }
               price={ id.price }
               id={ id.id }
+              removeItem={ () => this.removeItem(id.title) }
             />
           ))
           : <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>}
@@ -79,4 +60,3 @@ export default class ShoppingCart extends React.Component {
     );
   }
 }
-// Requisito feito por Junior/ Lucas/ Euclides
