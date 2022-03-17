@@ -8,7 +8,6 @@ class Category extends React.Component {
 
     this.state = {
       catState: '',
-      // categoryName: '',
     };
     this.categoryFunc = this.categoryFunc.bind(this);
     this.goState = this.goState.bind(this);
@@ -16,28 +15,9 @@ class Category extends React.Component {
 
   componentDidMount() {
     this.goState();
-    // this.categoryFunc();
   }
 
-  // stateCategory = ({ target }) => {
-  //   console.log(target);
-  //   this.setState({
-  //     categoryName: target.id,
-  //   }, () => {
-  //     this.productsFromCategory();
-  //   });
-  // }
-
-  // productsFromCategory = async () => {
-  //   const { categoryName } = this.state;
-  //   const data = await getCategoryFromId(categoryName);
-  //   const { results } = data;
-  //   console.log(results);
-  // }
-
   categoryFunc() {
-    // this.goState();
-    // console.log(catState);
     const { catState } = this.state;
     const { categoryFuncProp } = this.props;
     return (
@@ -61,23 +41,18 @@ class Category extends React.Component {
 
   async goState() {
     const categoria = await getCategories();
-    console.log(categoria);
     this.setState({
       catState: categoria,
-    }, () => {
-      // this.categoryFunc();
     });
   }
 
   render() {
-    // console.log(this.categoryFunc());
     const { catState } = this.state;
     return (
       <div>
         <h1>Categorias</h1>
 
-        { catState ? this.categoryFunc() : undefined }
-        {/* { this.goState() } */}
+        { catState ? this.categoryFunc() : null }
       </div>
     );
   }

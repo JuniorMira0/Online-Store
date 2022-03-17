@@ -1,21 +1,54 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+
+    };
+  }
+
+  addCart = () => {
+    const { productItem } = this.props;
+    const local = JSON.parse(localStorage.getItem('cartList'));
+    if (local) {
+      const lista = [...local, productItem];
+      const localStrig = JSON.stringify(lista);
+      localStorage.setItem('cartList', localStrig);
+    } else {
+      const lista = [productItem];
+      const localStrig = JSON.stringify(lista);
+      localStorage.setItem('cartList', localStrig);
+    }
+  }
+
   render() {
-    const { productName, productImage, productPrice, addCart } = this.props;
+    const { productItem } = this.props;
+    const { id, title, price, thumbnail } = productItem;
+
     return (
       <div data-testid="product">
-        <h1>{ productName }</h1>
+        <h1>{ title }</h1>
 
-        <img src={ productImage } alt={ productName } />
+        <img src={ thumbnail } alt={ title } />
 
-        <p>{ productPrice }</p>
+        <p>{ price }</p>
+
+        <Link
+          to={ `/product-detail/${id}` }
+          data-testid="product-detail-link"
+        >
+          Ver os detalhes
+        </Link>
 
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ addCart }
+          onClick={ this.addCart }
+          id={ id }
         >
           Adicionar ao carrinho
         </button>
@@ -25,10 +58,12 @@ class ProductCard extends React.Component {
 }
 
 ProductCard.propTypes = {
-  productName: propTypes.string.isRequired,
-  productImage: propTypes.string.isRequired,
-  productPrice: propTypes.string.isRequired,
-  addCart: propTypes.func.isRequired,
+  productItem: propTypes.shape({
+    title: propTypes.string.isRequired,
+    thumbnail: propTypes.string.isRequired,
+    price: propTypes.number.isRequired,
+    id: propTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ProductCard;

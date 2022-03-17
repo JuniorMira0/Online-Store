@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ShoppingCart from './ShoppingCart';
 import { getProductsFromQuery, getCategoryFromId } from '../services/api';
 import ProductCard from '../components/ProductCard';
 import Category from '../components/Category';
@@ -12,7 +11,6 @@ export default class Home extends React.Component {
       inputProduct: '',
       filterProduct: '',
       countCart: 0,
-      countState: '',
     };
   }
 
@@ -28,7 +26,6 @@ export default class Home extends React.Component {
     const data = await getProductsFromQuery(inputProduct);
     const { results } = data;
 
-    // const filtro = results.filter(({ title }) => title.includes(inputProduct));
     this.setState({
       filterProduct: results,
     });
@@ -45,21 +42,11 @@ export default class Home extends React.Component {
     if (filterProduct) {
       if (filterProduct.length > 0) {
         return (filterProduct
-          .map(({ id, title, price, thumbnail }) => (
-            <Link
-              to={ `/product-detail/${id}` }
-              data-testid="product-detail-link"
-              key={ id }
-            >
-              <ProductCard
-                key={ id }
-                nameId={ id }
-                productName={ title }
-                productPrice={ `R$: ${price}` }
-                productImage={ thumbnail }
-                addCart={ this.buttonAddCart }
-              />
-            </Link>
+          .map((product, index) => (
+            <ProductCard
+              key={ index }
+              productItem={ product }
+            />
           )));
       }
       return <p>Nenhum produto foi encontrado</p>;
@@ -67,41 +54,36 @@ export default class Home extends React.Component {
   }
 
   productsFromCategory = async (id) => {
-    // const { categoryName } = this.state;
     const data = await getCategoryFromId(id);
     const { results } = data;
-    console.log(results);
     this.setState({
       filterProduct: results,
     });
   }
 
+  renderLinkCart = () => {
+    const local = JSON.parse(localStorage.getItem('cartList'));
+    if (local && local.length > 0) {
+      return local.length;
+    }
+    return <p>Seu carrinho está vazio</p>;
+  }
+
   render() {
-    const { inputProduct, filterProduct, countCart, countState } = this.state;
-    console.log(countCart);
+    const { inputProduct, filterProduct } = this.state;
     return (
       <div data-testid="home-initial-message">
-        <button
-          type="submit"
-          data-testid="shopping-cart-button"
+        <Link
+          to="/shopping-cart"
         >
-          {/* <Link to="/shopping-cart">
-            { countCart === 0
-              ? <p>Seu carrinho está vazio</p>
-              : countCart } */}
-
-          <Link
-            to={ {
-              pathname: '/shopping-cart',
-              state: countState,
-            } }
+          <button
+            type="button"
+            data-testid="shopping-cart-button"
           >
-            { countCart === 0
-              ? <ShoppingCart countProduct={ countCart } />
-              : countCart }
+            { this.renderLinkCart() }
 
-          </Link>
-        </button>
+          </button>
+        </Link>
 
         <input
           type="text"
@@ -123,9 +105,8 @@ export default class Home extends React.Component {
         <Category categoryFuncProp={ this.productsFromCategory } />
 
         { filterProduct ? this.renderProduct() : undefined}
+
       </div>
     );
   }
 }
-
-// Requisito feito com Lucas Nascimento e Euclides Comprido.
